@@ -41,9 +41,10 @@ function addNewItem(){
     var itemBox = document.createElement("input");
     itemBox.setAttribute("list", "available-gear");
     itemBox.setAttribute("id", itemLabelName);
+    itemBox.setAttribute("class", "item");
 
     var quantityBox = document.createElement("input");
-    quantityBox.setAttribute("type", "number");
+    quantityBox.setAttribute("type", "text");
     quantityBox.setAttribute("id", quantityLabelName);
     quantityBox.setAttribute("class", "quantity");
 
@@ -56,7 +57,7 @@ function addNewItem(){
     var col3 = document.createElement("td");
     col3.setAttribute("id", costLabelName);
     col3.setAttribute("style", "text-align: center;")
-    col3.innerHTML = "Cost: £0.00";
+    col3.innerHTML = "Cost: £0";
 
     var tableRow = document.createElement("tr");
     let rowID = "tableItem" + itemNumber;
@@ -69,6 +70,8 @@ function addNewItem(){
     gearSelectTable.appendChild(tableRow);
 
     totalItemResult.innerHTML = itemNumber;
+
+    addQuantityListeners();
 }
 
 var findItemPrice = function(chosenItem){
@@ -95,11 +98,56 @@ function calculateTotal(){
 
         rentPrice = findItemPrice(selectedItem);
         rentPrice *= selectedQuantity;
-        selectedCost.innerHTML = "Cost: £" + rentPrice;
 
-        totalItemCost+=rentPrice;
+
+
+        if (!isNaN(rentPrice)){
+            selectedCost.innerHTML = "Cost: £" + rentPrice;
+            totalItemCost+=rentPrice;
+        } else {
+            selectedCost.innerHTML = "Cost: £0"
+            console.info( "error surrounding" + itemQuantity);
+        }
+
+
     }
-    totalCostOutput.innerHTML = "£" + totalItemCost;
+    //totalCostOutput.innerHTML = "£" + totalItemCost;
+    calculateCharityDiscount();
+}
+
+function addItemListeners() {
+    for (var i = 0; i < itemNumber; i++) {
+        var elementID;
+        var allItems = document.querySelectorAll(".item");
+        for ( var i = 0; i < allItems.length; i++) {
+            let itemID = "#item-" + (i + 1);
+            let item = document.querySelector(itemID);
+            item.addEventListener("change",calculateTotal,false);
+        };
+    };
+}
+
+function addQuantityListeners() {
+    for (var i = 0; i < itemNumber; i++) {
+        var elementID;
+        var allQuantityItems = document.querySelectorAll(".quantity");
+        for ( var i = 0; i < allQuantityItems.length; i++) {
+            let itemID = "#quantity-" + (i + 1);
+            let item = document.querySelector(itemID);
+            item.addEventListener("keyup",calculateTotal,false);
+        };
+    };
+}
+
+function calculateCharityDiscount() {
+    var charityDiscount = document.querySelector("#charitable-discount").value;
+
+    if (charityDiscount == "") {
+        charityDiscount = 0;
+    }
+
+    totalCostOutput.innerHTML = "£" + (totalItemCost - ((totalItemCost/100) * charityDiscount));
+
 }
 
 /*function setIndividualCost(evt) {
@@ -111,7 +159,7 @@ const availableGearList = document.querySelector("#available-gear");
 const gearSelectTable = document.querySelector(".gear-select-table tbody");
 const totalItemResult = document.querySelector("#total-item-counter");
 const totalCostOutput = document.querySelector("#total-cost");
-const allQuantItems = document.querySelectorAll("#quantity");
+var allQuantItems = document.querySelectorAll("#quantity");
 var newOption;
 var itemNumber = 1;
 var totalItemCost = 0;
@@ -119,4 +167,9 @@ var totalItemCost = 0;
 
 //run setup functions
 setAvailableItems();
+addItemListeners();
+addQuantityListeners();
 totalItemResult.innerHTML = itemNumber;
+
+//event listeners
+document.querySelector("#charitable-discount").addEventListener("keyup", calculateCharityDiscount, false);
