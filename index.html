@@ -53,12 +53,12 @@
                                     <label for="quantity">Quantity:</label>
                                 </td>
                                 <td>
-                                    <input list="available-gear" id="item-1" >
+                                    <input list="available-gear" id="item-1" class="item">
 
                                         <br>
-                                    <input type="number" id="quantity-1" class="quantity">
+                                    <input type="text" id="quantity-1" class="quantity">
                                 </td>
-                                <td style="text-align: center;" id="cost-1">Cost: £0.00</td>
+                                <td style="text-align: center;" id="cost-1">Cost: £0</td>
                             </tr>
                                 <datalist id="available-gear"><!--options injected by javascript--></datalist>
                             </tbody>
@@ -80,13 +80,21 @@
                 <tr>
                     <td>Total number of items:</td>
                     <td id="total-item-counter"></td>
+                    <td style="width:60%"></td>
+
                 </tr>
                 <tr>
                     <td>Total cost:</td>
                     <td id="total-cost">£0.00</td>
                 </tr>
             </table>
-            <button type="button" class="calculate" onclick="calculateTotal()">Calculate</button>
+            <table id="output-right-table">
+                <tr>
+                    <td><label for="charitable-discount">Charitable Discount: </label>
+                    <td><input type="text" id="charitable-discount" style="width:30px;" value="0"> %</td>
+                </tr>
+            </table>
+            <!--<button type="button" class="calculate" onclick="calculateTotal()">Calculate</button>->
         </div>
 
     </main>
@@ -95,8 +103,3 @@
     </footer>
 </body>
 </html>
-
-
-<!--
-add step: 0.01 to every number element for prices using js
--->

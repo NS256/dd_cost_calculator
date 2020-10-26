@@ -114,3 +114,9 @@ main {
 #ouput table {
     padding: 1%;
 }
+
+#output-right-table {
+    position: absolute;
+    top: 28px;
+    right: 4px;
+}
