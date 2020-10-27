@@ -17,6 +17,7 @@ function setAvailableItems() {
 function addNewItem(){
         //increase item number value
     itemNumber++;
+
         //setup item number, quantity number and line break
     let itemLabelName = "item-" + itemNumber;
     let quantityLabelName = "quantity-" + itemNumber;
@@ -42,11 +43,13 @@ function addNewItem(){
     itemBox.setAttribute("list", "available-gear");
     itemBox.setAttribute("id", itemLabelName);
     itemBox.setAttribute("class", "item");
+    itemBox.addEventListener("change",calculateTotal,false);
 
     var quantityBox = document.createElement("input");
     quantityBox.setAttribute("type", "text");
     quantityBox.setAttribute("id", quantityLabelName);
     quantityBox.setAttribute("class", "quantity");
+    quantityBox.addEventListener("keyup",calculateTotal,false);
 
     var col2 = document.createElement("td");
     col2.appendChild(itemBox);
@@ -68,18 +71,8 @@ function addNewItem(){
     tableRow.appendChild(col3);
 
     gearSelectTable.appendChild(tableRow);
-
     totalItemResult.innerHTML = itemNumber;
 
-    addQuantityListeners();
-}
-
-var findItemPrice = function(chosenItem){
-    for (var i = 0; i < itemPriceList.length; i++) {
-        if ( itemPriceList[i].name == chosenItem ) {
-            return itemPriceList[i].pricePerDay;
-        }
-    }
 }
 
 function calculateTotal(){
@@ -111,32 +104,7 @@ function calculateTotal(){
 
 
     }
-    //totalCostOutput.innerHTML = "£" + totalItemCost;
     calculateCharityDiscount();
-}
-
-function addItemListeners() {
-    for (var i = 0; i < itemNumber; i++) {
-        var elementID;
-        var allItems = document.querySelectorAll(".item");
-        for ( var i = 0; i < allItems.length; i++) {
-            let itemID = "#item-" + (i + 1);
-            let item = document.querySelector(itemID);
-            item.addEventListener("change",calculateTotal,false);
-        };
-    };
-}
-
-function addQuantityListeners() {
-    for (var i = 0; i < itemNumber; i++) {
-        var elementID;
-        var allQuantityItems = document.querySelectorAll(".quantity");
-        for ( var i = 0; i < allQuantityItems.length; i++) {
-            let itemID = "#quantity-" + (i + 1);
-            let item = document.querySelector(itemID);
-            item.addEventListener("keyup",calculateTotal,false);
-        };
-    };
 }
 
 function calculateCharityDiscount() {
@@ -150,10 +118,6 @@ function calculateCharityDiscount() {
 
 }
 
-/*function setIndividualCost(evt) {
-    console.log(this.id + ": Quantity has been changed")
-}*/
-
 var itemNames = [];
 const availableGearList = document.querySelector("#available-gear");
 const gearSelectTable = document.querySelector(".gear-select-table tbody");
@@ -161,15 +125,22 @@ const totalItemResult = document.querySelector("#total-item-counter");
 const totalCostOutput = document.querySelector("#total-cost");
 var allQuantItems = document.querySelectorAll("#quantity");
 var newOption;
-var itemNumber = 1;
+var itemNumber = 0;
 var totalItemCost = 0;
-
+var findItemPrice = function(chosenItem){
+    for (var i = 0; i < itemPriceList.length; i++) {
+        if ( itemPriceList[i].name == chosenItem ) {
+            return itemPriceList[i].pricePerDay;
+        }
+    }
+}
 
 //run setup functions
 setAvailableItems();
-addItemListeners();
-addQuantityListeners();
+addNewItem();
 totalItemResult.innerHTML = itemNumber;
 
 //event listeners
 document.querySelector("#charitable-discount").addEventListener("keyup", calculateCharityDiscount, false);
+document.querySelector("#item-1").addEventListener("change",calculateTotal,false);
+document.querySelector("#quantity-1").addEventListener("keyup",calculateTotal,false);

@@ -46,20 +46,6 @@
                                 <col span="1" style="width: 20%;">
                             </colgroup>
                             <tbody>
-                            <tr id="tableItem1" class="tableItem">
-                                <td>
-                                    <label for="item-1">Item:</label>
-                                        <br>
-                                    <label for="quantity">Quantity:</label>
-                                </td>
-                                <td>
-                                    <input list="available-gear" id="item-1" class="item">
-
-                                        <br>
-                                    <input type="text" id="quantity-1" class="quantity">
-                                </td>
-                                <td style="text-align: center;" id="cost-1">Cost: £0</td>
-                            </tr>
                                 <datalist id="available-gear"><!--options injected by javascript--></datalist>
                             </tbody>
                         </table>
@@ -85,7 +71,7 @@
                 </tr>
                 <tr>
                     <td>Total cost:</td>
-                    <td id="total-cost">£0.00</td>
+                    <td id="total-cost">£0</td>
                 </tr>
             </table>
             <table id="output-right-table">
@@ -94,7 +80,6 @@
                     <td><input type="text" id="charitable-discount" style="width:30px;" value="0"> %</td>
                 </tr>
             </table>
-            <!--<button type="button" class="calculate" onclick="calculateTotal()">Calculate</button>->
         </div>
 
     </main>
