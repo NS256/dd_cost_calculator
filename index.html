@@ -56,6 +56,10 @@
 
             <div id="warnings">
                 <h2 class="section-title">Warnings</h2>
+                <button id="clear-warnings" onclick="clearWarnings()">Clear Warnings</button>
+                <ul id="warning-output-list" >
+                    <!--<li id="quantity-warning-xlrLeads">test</li>-->
+                </ul>
             </div>
         </div>
 
@@ -75,6 +79,10 @@
                 </tr>
             </table>
             <table id="output-right-table">
+                <tr>
+                    <td><label for="event-length">Event/Hire Length: </label>
+                    <td style="width: 75px;"><input type="text" id="event-length" style="width:30px;" value="1"> Days</td>
+                </tr>
                 <tr>
                     <td><label for="charitable-discount">Charitable Discount: </label>
                     <td><input type="text" id="charitable-discount" style="width:30px;" value="0"> %</td>

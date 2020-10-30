@@ -61,6 +61,12 @@ main {
     border-style: solid;
 }
 
+#clear-warnings {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+}
+
 #output {
     width: 100%;
     height: 100%;
