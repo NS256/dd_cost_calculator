@@ -145,7 +145,6 @@ function itemMaxQuantityWarning(itemID, itemQuantity) {
         if ( document.querySelector("#" + itemWarningID) ) {
             //do nothing
         } else {
-            console.log(itemWarningID);
             newWarning = document.createElement("li");
             newWarning.setAttribute("class", "quantity-warning warning");
             newWarning.setAttribute("id", itemWarningID);
@@ -192,7 +191,6 @@ function itemDependancyWarnings() {
         } else {
             if (selectedItems.includes("Line Array Leads")) {
                 warning = document.querySelector("#lineArrayLeads-missing");
-                console.log(warning);
                 warning.remove();
             }
         }
@@ -202,7 +200,6 @@ function itemDependancyWarnings() {
 function clearWarnings() {
     var allWarnings = document.querySelectorAll(".warning");
     for ( let i = 0; i < allWarnings.length; i++) {
-        console.log(allWarnings);
         allWarnings[i].remove();
     }
 }
